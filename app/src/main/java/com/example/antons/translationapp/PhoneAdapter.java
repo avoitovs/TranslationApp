@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,10 +18,12 @@ public class PhoneAdapter extends BaseAdapter {
 
     private List<Phone> phoneList;
     private LayoutInflater layoutInflater;
+    private int color;
 
-    public PhoneAdapter(Context context,List<Phone> phoneList) {
+    public PhoneAdapter(Context context,List<Phone> phoneList, int color) {
         this.phoneList = phoneList;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.color = color;
     }
 
     @Override
@@ -44,6 +47,11 @@ public class PhoneAdapter extends BaseAdapter {
         if (view==null){
             view = layoutInflater.inflate(R.layout.phone_layout, viewGroup,false);
         }
+
+        view.setBackgroundColor(color);
+
+        ImageView pictureImageView = view.findViewById(R.id.phone_device_picture);
+        pictureImageView.setImageResource(getItem(position).getResourceIDPicture());
 
         TextView idTextView = view.findViewById(R.id.phone_device_id);
         idTextView.setText(Integer.toString(getItem(position).getId()));
